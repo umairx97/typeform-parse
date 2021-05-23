@@ -1,15 +1,36 @@
-# CommitterJS
-Node script that creates commits based on time range
+# Typeform-parse
+
+Javascript library made specifically to parse typeform responses, is able to parse any type for questions 
+and return the submitted reponses, regardless if they are simple "text" or multiple "choice"
+
 ## Usage:
 
-if NPM >= 5.0
-```bash
-npx committerjs \
---year="2021" \   # optional - current year used as default
---from="01/01" \  # month/date
---to="03/03"      # month/date
+`parseAnswersByRefs (refMap, answers)`
+
+`parseAnswersByRefs (refMap, answers, separator)`
+
+```javascript
+// create this yourself and match the question ref-ids from typeform dashboard
+const refMap = { answer1: "5a69fc2b-07ca-42f2-bfbb-8eace6da6d9f" };
+
+// you'll get this from typeform withing reponses api and webhooks
+const answers = [ 
+  {
+    field: {
+      id: "83P8UV3K7yMs",
+      ref: "5a69fc2b-07ca-42f2-bfbb-8eace6da6d9f",
+      type: "multiple_choice",
+    },
+    type: "choice",
+    choice: { id: "3FOG4jSbHR1R", label: "answer1 - test response" },
+  }
+];
+
+// Output - { answer1:  'answer1 - test response' } 
+const result = parseAnswersByRefs (refMap, answers) 
+
 ```
 
-**Note**: Uses the folder git config, so make sure those are correctly set up, after running the script just `git push` 
 ## Author:
+
 [umairx97](https://github.com/umairx97)
