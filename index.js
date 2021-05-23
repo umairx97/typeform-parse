@@ -11,30 +11,8 @@ module.exports = {
  * Primary function to parse all the answers provided by using a reference map object
  * parameters defined as below, and returns also an object with k-v pairs of answers submitted
  *
- * @param {Object} refMap - K-V Pair of fields and their correspond refs
- *
- * ```javascript
- * const refMap = { answer1: '5a69fc2b-07ca-42f2-bfbb-8eace6da6d9f' }
- * ```
- * @param {Array} answers
- *
- * ```javascript
- * const answers = [
-  {
-    field: {
-      id: '83P8UV3K7yMs',
-      ref: '5a69fc2b-07ca-42f2-bfbb-8eace6da6d9f',
-      type: 'multiple_choice'
-    },
-    type: 'choice',
-    choice: {
-      id: '3FOG4jSbHR1R',
-      label: 'auditConfirmation - test response'
-    }
-  }
-]
- * ```
- *
+ * @param {Object} refMap - K-V Pair of fields and their correspond refs`
+ * @param {Array} answers - Submissions from typeform; responses or webhooks api
  * @param {String} separator - optional, to separate multiple choice answers
  */
 function parseAnswersByRefs (refMap = {}, answers = [], separator = ',') {
