@@ -1,0 +1,29 @@
+{
+  "name": "typeform-parse",
+  "version": "1.0.0",
+  "description": "Node script that creates commits based on time range",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/umairx97/typeform-parse"
+  },
+  "bin": {
+    "typeform-parse": "./index.js"
+  },
+  "keywords": [
+    "typeform", 
+    "node", 
+    "browser"
+  ],
+  "author": "Umair Bajwa",
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Umair Bajwa",
+      "email": "umairahmedbajwa97@gmail.com",
+      "url": "https://github.com/umairx97/"
+    }
+  ],
+  "devDependencies": {
+    "standard": "^16.0.3"
+  }
+}
