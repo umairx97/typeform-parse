@@ -1,3 +1,5 @@
+const { FLAT_TYPES } = require('./constants')
+
 module.exports = {
   parseAnswerField,
   parseAnswersByRefs,
@@ -51,28 +53,22 @@ function parseAnswersByRefs (refMap = {}, answers = [], separator = ',') {
 
 function parseAnswerField (data, separator) {
   if (!data) return null
-  switch (data.type) {
-    case 'text':
-      return data.text
-    case 'choice':
-      return data.choice.label
-    case 'boolean':
-      return data.boolean
-    case 'email':
-      return data.email
-    case 'dropdown':
-      return data.text
-    case 'phone_number':
-      return data.phone_number
-    case 'number':
-      return data.number
-    case 'date':
-      return data.date
-    case 'choices':
-      if (!data.choices.labels) return data.choices.other
-      return data.choices.other
-        ? [...data.choices.labels, data.choices.other].join(separator || ',')
-        : data.choices.labels.join(separator || ',')
+  const { type } = data
+
+  if (FLAT_TYPES.includes(type)) return data[type]
+
+  if (type === 'choices') {
+    if (!data.choices.labels) return data.choices.other
+
+    return data.choices.other
+      ? [...data.choices.labels, data.choices.other].join(separator || ',')
+      : data.choices.labels.join(separator || ',')
+  }
+
+  switch (type) {
+    case 'choice': return data.choice.label
+    case 'dropdown': return data.text
+
     default:
       throw new Error('Unsupported type')
   }
@@ -85,3 +81,23 @@ function getQuestionRef (refMap = {}, field = '') {
 function findAnswerByRef (answers = [], ref = '') {
   return answers.find(({ field }) => field.ref === ref)
 }
+
+// // create this yourself and match the question ref-ids from typeform dashboard
+// const refMap = { answer1: '5a69fc2b-07ca-42f2-bfbb-8eace6da6d9f' }
+
+// // you'll get this from typeform within reponses api and webhooks
+// const answers = [
+//   {
+//     field: {
+//       id: '83P8UV3K7yMs',
+//       ref: '5a69fc2b-07ca-42f2-bfbb-8eace6da6d9f',
+//       type: 'multiple_choice'
+//     },
+//     type: 'choice',
+//     choice: { id: '3FOG4jSbHR1R', label: 'answer1 - test response' }
+//   }
+// ]
+
+// // Output - { answer1:  'answer1 - test response' }
+// const result = parseAnswersByRefs(refMap, answers)
+// console.log(result)

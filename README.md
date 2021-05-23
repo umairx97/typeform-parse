@@ -13,7 +13,7 @@ and return the submitted reponses, regardless if they are simple "text" or multi
 // create this yourself and match the question ref-ids from typeform dashboard
 const refMap = { answer1: "5a69fc2b-07ca-42f2-bfbb-8eace6da6d9f" };
 
-// you'll get this from typeform withing reponses api and webhooks
+// you'll get this from typeform within reponses api and webhooks
 const answers = [ 
   {
     field: {
