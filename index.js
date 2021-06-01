@@ -1,11 +1,6 @@
-const { FLAT_TYPES } = require('./constants')
+const { parseAnswerField, findAnswerByRef, getQuestionRef } = require('./lib')
 
-module.exports = {
-  parseAnswerField,
-  parseAnswersByRefs,
-  findAnswerByRef,
-  getQuestionRef
-}
+module.exports = typeformParse
 
 /**
  * Primary function to parse all the answers provided by using a reference map object
@@ -15,7 +10,7 @@ module.exports = {
  * @param {Array} answers - Submissions from typeform; responses or webhooks api
  * @param {String} separator - optional, to separate multiple choice answers
  */
-function parseAnswersByRefs (refMap = {}, answers = [], separator = ',') {
+function typeformParse (refMap = {}, answers = [], separator = ',') {
   if (!Array.isArray(answers)) answers = [answers]
   const result = {}
 
@@ -28,35 +23,4 @@ function parseAnswersByRefs (refMap = {}, answers = [], separator = ',') {
   }
 
   return result
-}
-
-function parseAnswerField (data, separator) {
-  if (!data) return null
-  const { type } = data
-
-  if (FLAT_TYPES.includes(type)) return data[type]
-
-  if (type === 'choices') {
-    if (!data.choices.labels) return data.choices.other
-
-    return data.choices.other
-      ? [...data.choices.labels, data.choices.other].join(separator || ',')
-      : data.choices.labels.join(separator || ',')
-  }
-
-  switch (type) {
-    case 'choice': return data.choice.label
-    case 'dropdown': return data.text
-
-    default:
-      throw new Error('Unsupported type')
-  }
-}
-
-function getQuestionRef (refMap = {}, field = '') {
-  return refMap[field]
-}
-
-function findAnswerByRef (answers = [], ref = '') {
-  return answers.find(({ field }) => field.ref === ref)
 }
