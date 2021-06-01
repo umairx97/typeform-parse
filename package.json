@@ -6,12 +6,12 @@
   "repository": {
     "url": "https://github.com/umairx97/typeform-parse"
   },
-  "bin": {
-    "typeform-parse": "./index.js"
+  "scripts": {
+    "test": "NODE_ENV=test tape tests/*.js && standard"
   },
   "keywords": [
-    "typeform", 
-    "node", 
+    "typeform",
+    "node",
     "browser"
   ],
   "author": "Umair Bajwa",
@@ -24,6 +24,7 @@
     }
   ],
   "devDependencies": {
-    "standard": "^16.0.3"
+    "standard": "^16.0.3",
+    "tape": "^5.2.2"
   }
 }

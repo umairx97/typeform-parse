@@ -16,6 +16,7 @@ module.exports = {
  * @param {String} separator - optional, to separate multiple choice answers
  */
 function parseAnswersByRefs (refMap = {}, answers = [], separator = ',') {
+  if (!Array.isArray(answers)) answers = [answers]
   const result = {}
 
   for (const field in refMap) {
@@ -59,23 +60,3 @@ function getQuestionRef (refMap = {}, field = '') {
 function findAnswerByRef (answers = [], ref = '') {
   return answers.find(({ field }) => field.ref === ref)
 }
-
-// // create this yourself and match the question ref-ids from typeform dashboard
-// const refMap = { answer1: '5a69fc2b-07ca-42f2-bfbb-8eace6da6d9f' }
-
-// // you'll get this from typeform within reponses api and webhooks
-// const answers = [
-//   {
-//     field: {
-//       id: '83P8UV3K7yMs',
-//       ref: '5a69fc2b-07ca-42f2-bfbb-8eace6da6d9f',
-//       type: 'multiple_choice'
-//     },
-//     type: 'choice',
-//     choice: { id: '3FOG4jSbHR1R', label: 'answer1 - test response' }
-//   }
-// ]
-
-// // Output - { answer1:  'answer1 - test response' }
-// const result = parseAnswersByRefs(refMap, answers)
-// console.log(result)
