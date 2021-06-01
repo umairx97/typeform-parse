@@ -1,5 +1,5 @@
 const test = require('tape')
-const typeform = require('../')
+const typeformParse = require('../')
 
 test('parseAnswersByRefs, should correctly parse all types of answers', t => {
   const refMap = { testAnswer: '5a69fc2b-07ca-42f2-bfbb-8eace6da6d9f' }
@@ -14,7 +14,7 @@ test('parseAnswersByRefs, should correctly parse all types of answers', t => {
     choice: { id: '3FOG4jSbHR1R', label: 'choice answer' }
   }
 
-  let parsedAnswer = typeform.parseAnswersByRefs(refMap, choiceAnswer)
+  let parsedAnswer = typeformParse(refMap, choiceAnswer)
   t.deepEqual(parsedAnswer, { testAnswer: 'choice answer' })
 
   const yesAndNoAnswer = {
@@ -27,7 +27,7 @@ test('parseAnswersByRefs, should correctly parse all types of answers', t => {
     boolean: true
   }
 
-  parsedAnswer = typeform.parseAnswersByRefs(refMap, yesAndNoAnswer)
+  parsedAnswer = typeformParse(refMap, yesAndNoAnswer)
   t.deepEqual(parsedAnswer, { testAnswer: true })
 
   const dropdownAnswer = {
@@ -40,7 +40,7 @@ test('parseAnswersByRefs, should correctly parse all types of answers', t => {
     text: 'Option 1'
   }
 
-  parsedAnswer = typeform.parseAnswersByRefs(refMap, dropdownAnswer)
+  parsedAnswer = typeformParse(refMap, dropdownAnswer)
   t.deepEqual(parsedAnswer, { testAnswer: 'Option 1' })
 
   const emailAnswer = {
@@ -53,7 +53,7 @@ test('parseAnswersByRefs, should correctly parse all types of answers', t => {
     email: 'typeform@test.com'
   }
 
-  parsedAnswer = typeform.parseAnswersByRefs(refMap, emailAnswer)
+  parsedAnswer = typeformParse(refMap, emailAnswer)
   t.deepEqual(parsedAnswer, { testAnswer: 'typeform@test.com' })
 
   const fileUploadAnswer = {
@@ -66,7 +66,7 @@ test('parseAnswersByRefs, should correctly parse all types of answers', t => {
     file_url: 'https://test.com/example.jpg'
   }
 
-  parsedAnswer = typeform.parseAnswersByRefs(refMap, fileUploadAnswer)
+  parsedAnswer = typeformParse(refMap, fileUploadAnswer)
   t.deepEqual(parsedAnswer, { testAnswer: 'https://test.com/example.jpg' })
 
   const dateAnswer = {
@@ -79,7 +79,7 @@ test('parseAnswersByRefs, should correctly parse all types of answers', t => {
     date: '2021-06-14'
   }
 
-  parsedAnswer = typeform.parseAnswersByRefs(refMap, dateAnswer)
+  parsedAnswer = typeformParse(refMap, dateAnswer)
   t.deepEqual(parsedAnswer, { testAnswer: '2021-06-14' })
 
   const urlAnswer = {
@@ -92,7 +92,7 @@ test('parseAnswersByRefs, should correctly parse all types of answers', t => {
     url: 'https://test.com/example.html'
   }
 
-  parsedAnswer = typeform.parseAnswersByRefs(refMap, urlAnswer)
+  parsedAnswer = typeformParse(refMap, urlAnswer)
   t.deepEqual(parsedAnswer, { testAnswer: 'https://test.com/example.html' })
 
   const phoneNumberAnswer = {
@@ -105,7 +105,7 @@ test('parseAnswersByRefs, should correctly parse all types of answers', t => {
     phone_number: '555-555-555'
   }
 
-  parsedAnswer = typeform.parseAnswersByRefs(refMap, phoneNumberAnswer)
+  parsedAnswer = typeformParse(refMap, phoneNumberAnswer)
   t.deepEqual(parsedAnswer, { testAnswer: '555-555-555' })
 
   const multipleChoicesAnswer = {
@@ -121,7 +121,7 @@ test('parseAnswersByRefs, should correctly parse all types of answers', t => {
     }
   }
 
-  parsedAnswer = typeform.parseAnswersByRefs(refMap, multipleChoicesAnswer)
+  parsedAnswer = typeformParse(refMap, multipleChoicesAnswer)
   t.deepEqual(parsedAnswer, { testAnswer: 'Choice 1,Choice 2,Choice Random' })
 
   const multipleChoicesAnswers = {
@@ -138,7 +138,7 @@ test('parseAnswersByRefs, should correctly parse all types of answers', t => {
   }
 
   const separator = ';'
-  parsedAnswer = typeform.parseAnswersByRefs(refMap, multipleChoicesAnswers, separator)
+  parsedAnswer = typeformParse(refMap, multipleChoicesAnswers, separator)
   t.deepEqual(parsedAnswer, { testAnswer: 'Choice 1;Choice 2;Choice Random' })
   t.end()
 })
