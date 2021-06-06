@@ -1,7 +1,7 @@
 {
   "name": "typeform-parse",
   "version": "1.0.0",
-  "description": "Node script that creates commits based on time range",
+  "description": "Javascript library made to parse typeform responses",
   "main": "index.js",
   "repository": {
     "url": "https://github.com/umairx97/typeform-parse"
